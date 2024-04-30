@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PingFang+TC|Microsoft+JhengHei|Noto+Sans+TC&display=swap">
+
+
+
+    <title>蟹堡王/店家網頁</title>
+    <style>
+        body {
+            font-family: 'Microsoft JhengHei', sans-serif;
+            
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Microsoft JhengHei', sans-serif;
+            font-weight: 950;
+        }
+
+        p {
+            font-family: 'Noto Sans CJK TC', sans-serif;
+          
+        }
+
+
+
+
+
+
+
+
+        .line {
+            width: 100%;
+            height: 1px;
+            background-color:  #00CED1;
+            margin: 10px 0;
+        }
+        .line2 {
+            width: 100%;
+            height: 0.5px;
+            background-color:  #00CED1;
+            margin: 10px 0;
+        }
+
+        .nav-container {
+            position: sticky;
+            top: 0;
+            z-index: 999;
+            margin: 0; /* 將外邊距設置為0 */
+        }
+
+        .nav {
+            list-style: none;
+            display: flex;
+            gap: 15px;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            width: 100%;
+            background-color: #fff;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); /* 添加陰影 */
+            margin-top: 0;
+        }
+
+        .nav li {
+            flex-shrink: 0;
+            width: 90px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: 700;
+            padding: 12px 12px;
+            cursor: pointer;
+            scroll-snap-align: start;
+
+            transition: all 0.3s ease; /* 添加過渡效果 */
+        }
+        .nav li.active {
+   
+
+            border-radius: 10px; /* 圓角 */
+            background-color:  #FFD700; /* 淡藍色 */
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2); /* 添加陰影 */
+
+        }
+
+
+        .nav-container.fixed {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 999;
+        }
+
+
+        .nav::-webkit-scrollbar {
+            display: none;
+        }
+
+
+        .store-menu {
+            position: absolute;
+            top: 0;
+            left: 0;
+            font-weight: bold;
+            padding: 10px;
+            background-color: #fff;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); /* 添加陰影 */
+        }
+
+
+        /* 給q */
+        /* 新增的样式 */
+
+        .store-header {
+            border-bottom: 1px solid #ccc; /* 添加灰色横线 */
+            margin-bottom: 20px; /* 添加间距 */
+            padding-left: 20px; /* 添加左边距 */
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 5px 0; /* 調整頂部和底部填充 */
+            margin-bottom: 20px;
+            height: 40px;
+            font-weight: 700;
+        }
+
+        .logo-container {
+            width: 50px; /* 设置 logo 容器宽度 */
+            padding-left: 13px; /* 添加左边距 */
+        }
+
+        .logo {
+            width: 100%; /* 让 logo 充满容器 */
+            height: auto; /* 自适应高度 */
+            padding-left: 10px; /* 添加左边距 */
+        }
+
+        .address {
+            flex: 5; /* 占据 5 份空间 */
+            text-align: left; /* 左对齐 */
+            padding-left: 30px; /* 添加左边距 */
+        }
+
+        .navigation {
+            flex: 1; /* 占据 1 份空间 */
+            text-align: right;
+            padding-right: 10px; /* 添加左边距 */
+        }
+
+        /* 新增的樣式 */
+        .button-container {
+            display: flex;
+            flex-direction: column; /* 將按鈕以列的方式排列 */
+            gap: 10px; /* 設置按鈕之間的間距 */
+            font-weight: 550;
+        }
+
+        .button {
+            width: 100%; /* 讓按鈕佔滿父元素的寬度 */
+            display: flex;
+            align-items: center;
+        }
+
+        .button img {
+            max-width: 50%;
+            height: auto;
+            margin-left: auto; /* 將圖片靠右 */
+            margin-right: 10px; /* 添加圖片右邊距 */
+        }
+
+        .button p {
+            flex: 1; /* 讓文字占據剩餘空間 */
+            margin: 0; /* 清除預設邊距 */
+        }
+
+
+
+        .options-modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            z-index: 9999;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+            display: none;
+        }
+
+        .options-modal .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+        }
+
+        /* 購物車按鈕樣式 */
+        .add-to-cart-btn {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        /* 購物車合計金額和確認按鈕樣式 */
+        .cart-summary {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: #f8f9fa;
+            padding: 10px 20px;
+            display: none;
+            border-top: 1px solid #ccc;
+            box-shadow: 0px -2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .cart-summary .total-price {
+            float: left;
+            font-weight: bold;
+        }
+
+        .cart-summary .checkout-btn {
+            float: right;
+            background-color: #28a745;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+
+
+
+
+
+
+
+
+    </style>
+</head>
+<body>
+    <!-- 店名单独在最顶部 -->
+    <div class="store-header">
+        <h1 class="store-name">蟹堡王</h1>
+    </div>
+
+    <!-- 下方添加包含 logo、位置和导航的元素行 -->
+    <div class="header">
+        <div class="logo-container">
+            <img src="https://via.placeholder.com/150" alt="logo" class="logo">
+        </div>
+        <p class="address">地址</p>
+        <p class="navigation"><a href="https://maps.google.com/">導航</a></p>
+    </div>
+    <!-- 第三列 -->
+    <div class="header">
+        <div class="logo-container">
+            <img src="https://via.placeholder.com/150" alt="logo" class="logo">
+        </div>
+        <p class="address">電話</p>
+        <p class="navigation"><a href="https://maps.google.com/">撥打</a></p>
+    </div>
+    <!-- 第四列 -->
+    <div class="header">
+        <div class="logo-container">
+            <img src="https://via.placeholder.com/150" alt="logo" class="logo">
+        </div>
+        <p class="address">營業狀態</p>
+        <p class="navigation"><a href="https://maps.google.com/">導航</a></p>
+    </div>
+
+    <div class="line"></div>
+
+    <!-- 橫向滾動條區域 -->
+    <div class="nav-container">
+    <ul class="nav">
+        <li class="tab active" onclick="scrollToSection(0)">食物1</li>
+        <li class="tab" onclick="scrollToSection(1)">食物2</li>
+        <li class="tab" onclick="scrollToSection(2)">食物3</li>
+        <li class="tab" onclick="scrollToSection(3)">食物4</li>
+        <li class="tab" onclick="scrollToSection(4)">食物5</li>
+        <li class="tab" onclick="scrollToSection(5)">食物6</li>
+        <li class="tab" onclick="scrollToSection(6)">食物7</li>
+        <li class="tab" onclick="scrollToSection(7)">食物8</li>
+        <li class="tab" onclick="scrollToSection(8)">食物9</li>
+        <li class="tab" onclick="scrollToSection(9)">食物10</li>
+    </ul>
+    </div>
+
+    <div class="line2"></div>
+
+<!-- 食物1的按鈕 -->
+<div id="section1" class="button-container">
+    <h2>食物1</h2>
+ <!-- 食物1-1按鈕 -->
+
+ <div id="food1-1" onclick="showOptions('food1-1')" class="button">
+    <p>食物1-1 - $<span id="food1-1-price">100</span></p>
+    <img src="https://via.placeholder.com/100" alt="food1-1">
+</div>
+
+<!-- 選項框 -->
+<div id="optionsModal" class="options-modal">
+    <span class="close-btn" onclick="hideOptions()">×</span>
+    <h3>請選擇調整</h3>
+    <input type="checkbox" id="egg" name="egg">
+    <label for="egg">加蛋 $10</label><br>
+    <input type="checkbox" id="noEgg" name="noEgg">
+    <label for="noEgg">不加蛋 $10</label><br>
+    <input type="checkbox" id="wellDone" name="wellDone">
+    <label for="wellDone">蛋全熟 $10</label><br>
+    <input type="checkbox" id="halfDone" name="halfDone">
+    <label for="halfDone">蛋半熟 $10</label><br>
+    <input type="checkbox" id="noIce" name="noIce">
+    <label for="noIce">去冰 $10</label><br>
+    <input type="checkbox" id="hot" name="hot">
+    <label for="hot">加熱 $10</label><br>
+    <input type="checkbox" id="ketchup" name="ketchup">
+    <label for="ketchup">加番茄醬 $10</label><br>
+    <div class="quantity-selector">
+        <button onclick="decreaseQuantity()">-</button>
+        <span id="quantity">1</span>
+        <button onclick="increaseQuantity()">+</button>
+    </div>
+    <button class="add-to-cart-btn" onclick="addToCart()">加入購物車/(餐點金額)</button>
+</div>
+
+ <!-- 購物車合計金額和確認按鈕 -->
+ <div id="cartSummary" class="cart-summary">
+    <div class="total-price">購物車合計金額：$<span id="totalPrice">0</span></div>
+    <button class="checkout-btn" onclick="checkout()">確認餐點</button>
+</div>
+
+
+
+
+
+
+
+
+
+
+    <div class="line2"></div>
+    <div id="food1-2" onclick="showOptions('food1-2')" class="button">
+        <p>食物1-2 - $<span id="food1-2-price">200</span></p>
+        <img src="https://via.placeholder.com/100" alt="food1-2">
+    </div>
+    <div class="line2"></div>
+    <div id="food1-3" onclick="showOptions('food1-3')" class="button">
+        <p>食物1-3 - $<span id="food1-3-price">300</span></p>
+        <img src="https://via.placeholder.com/100" alt="food1-3">
+    </div>
+</div>
+<div class="line"></div>
+
+<!-- 食物2的按鈕 -->
+<div id="section2" class="button-container">
+    <h2>食物2</h2>
+    <div id="food2-1" onclick="showOptions('food2-1')" class="button">
+        <p>食物2-1 - $<span id="food2-1-price">100</span></p>
+        <img src="https://via.placeholder.com/100" alt="food2-1">
+    </div>
+    <div class="line2"></div>
+    <div id="food2-2" onclick="showOptions('food2-2')" class="button">
+        <p>食物2-2 - $<span id="food2-2-price">200</span></p>
+        <img src="https://via.placeholder.com/100" alt="food2-2">
+    </div>
+    <div class="line2"></div>
+    <div id="food2-3" onclick="showOptions('food2-3')" class="button">
+        <p>食物2-3 - $<span id="food2-3-price">300</span></p>
+        <img src="https://via.placeholder.com/100" alt="food2-3">
+    </div>
+</div>
+<div class="line"></div>
+
+<!-- 食物3的按鈕 -->
+<div id="section3" class="button-container">
+    <h2>食物3</h2>
+    <div id="food3-1" onclick="showOptions('food3-1')" class="button">
+        <p>食物3-1 - $<span id="food3-1-price">100</span></p>
+        <img src="https://via.placeholder.com/100" alt="food3-1">
+    </div>
+    <div class="line2"></div>
+    <div id="food3-2" onclick="showOptions('food3-2')" class="button">
+        <p>食物3-2 - $<span id="food3-2-price">200</span></p>
+        <img src="https://via.placeholder.com/100" alt="food3-2">
+    </div>
+    <div class="line2"></div>
+    <div id="food3-3" onclick="showOptions('food3-3')" class="button">
+        <p>食物3-3 - $<span id="food3-3-price">300</span></p>
+        <img src="https://via.placeholder.com/100" alt="food3-3">
+    </div>
+</div>
+<div class="line"></div>
+
+
+
+
+
+
+<!-- 食物的按鈕 -->
+<div id="section4" class="button-container">
+    <h2>食物4</h2>
+    <div id="food4-1" onclick="showOptions('food4-1')" class="button">
+        <p>食物4-1 - $<span id="food4-1-price">100</span></p>
+        <img src="https://via.placeholder.com/100" alt="food4-1">
+    </div>
+    <div class="line2"></div>
+    <div id="food4-2" onclick="showOptions('food4-2')" class="button">
+        <p>食物4-2 - $<span id="food4-2-price">200</span></p>
+        <img src="https://via.placeholder.com/100" alt="food4-2">
+    </div>
+    <div class="line2"></div>
+    <div id="food4-3" onclick="showOptions('food4-3')" class="button">
+        <p>食物4-3 - $<span id="food4-3-price">300</span></p>
+        <img src="https://via.placeholder.com/100" alt="food4-3">
+    </div>
+</div>
+<div class="line2"></div>
+
+<!-- 食物的按鈕 -->
+<div id="section5" class="button-container">
+    <h2>食物5</h2>
+    <div id="food5-1" onclick="showOptions('food5-1')" class="button">
+        <p>食物5-1 - $<span id="food5-1-price">100</span></p>
+        <img src="https://via.placeholder.com/100" alt="food5-1">
+    </div>
+    <div class="line2"></div>
+    <div id="food5-2" onclick="showOptions('food2-2')" class="button">
+        <p>食物5-2 - $<span id="food5-2-price">200</span></p>
+        <img src="https://via.placeholder.com/100" alt="food5-2">
+    </div>
+    <div class="line2"></div>
+    <div id="food5-3" onclick="showOptions('food5-3')" class="button">
+        <p>食物5-3 - $<span id="food5-3-price">300</span></p>
+        <img src="https://via.placeholder.com/100" alt="food5-3">
+    </div>
+</div>
+<div class="line"></div>
+
+<!-- 食物的按鈕 -->
+<div id="section6" class="button-container">
+    <h2>食物6</h2>
+    <div id="food6-1" onclick="showOptions('food6-1')" class="button">
+        <p>食物6-1 - $<span id="food6-1-price">100</span></p>
+        <img src="https://via.placeholder.com/100" alt="food6-1">
+    </div>
+    <div class="line2"></div>
+    <div id="food6-2" onclick="showOptions('food6-2')" class="button">
+        <p>食物6-2 - $<span id="food6-2-price">200</span></p>
+        <img src="https://via.placeholder.com/100" alt="food6-2">
+    </div>
+    <div class="line2"></div>
+    <div id="food6-3" onclick="showOptions('food6-3')" class="button">
+        <p>食物6-3 - $<span id="food6-3-price">300</span></p>
+        <img src="https://via.placeholder.com/100" alt="food6-3">
+    </div>
+</div>
+<div class="line2"></div>
+
+<!-- 食物的按鈕 -->
+<div id="section7" class="button-container">
+    <h2>食物7</h2>
+    <div id="food7-1" onclick="showOptions('food7-1')" class="button">
+        <p>食物7-1 - $<span id="food7-1-price">100</span></p>
+        <img src="https://via.placeholder.com/100" alt="food7-1">
+    </div>
+    <div class="line2"></div>
+    <div id="food7-2" onclick="showOptions('food7-2')" class="button">
+        <p>食物7-2 - $<span id="food7-2-price">200</span></p>
+        <img src="https://via.placeholder.com/100" alt="food7-2">
+    </div>
+    <div class="line2"></div>
+    <div id="food7-3" onclick="showOptions('food7-3')" class="button">
+        <p>食物7-3 - $<span id="food7-3-price">300</span></p>
+        <img src="https://via.placeholder.com/100" alt="food7-3">
+    </div>
+</div>
+<div class="line2"></div>
+
+
+<!-- 食物的按鈕 -->
+<div id="section8" class="button-container">
+    <h2>食物8</h2>
+    <div id="food8-1" onclick="showOptions('food8-1')" class="button">
+        <p>食物8-1 - $<span id="food8-1-price">100</span></p>
+        <img src="https://via.placeholder.com/100" alt="food8-1">
+    </div>
+    <div class="line2"></div>
+    <div id="food8-2" onclick="showOptions('food8-2')" class="button">
+        <p>食物8-2 - $<span id="food8-2-price">200</span></p>
+        <img src="https://via.placeholder.com/100" alt="food8-2">
+    </div>
+    <div class="line2"></div>
+    <div id="food8-3" onclick="showOptions('food8-3')" class="button">
+        <p>食物8-3 - $<span id="food8-3-price">300</span></p>
+        <img src="https://via.placeholder.com/100" alt="food8-3">
+    </div>
+</div>
+<div class="line2"></div>
+
+<!-- 食物的按鈕 -->
+<div id="section9" class="button-container">
+    <h2>食物9</h2>
+    <div id="food9-1" onclick="showOptions('food9-1')" class="button">
+        <p>食物9-1 - $<span id="food9-1-price">100</span></p>
+        <img src="https://via.placeholder.com/100" alt="food9-1">
+    </div>
+    <div class="line2"></div>
+    <div id="food9-2" onclick="showOptions('food9-2')" class="button">
+        <p>食物9-2 - $<span id="food9-2-price">200</span></p>
+        <img src="https://via.placeholder.com/100" alt="food9-2">
+    </div>
+    <div class="line2"></div>
+    <div id="food9-3" onclick="showOptions('food9-3')" class="button">
+        <p>食物9-3 - $<span id="food9-3-price">300</span></p>
+        <img src="https://via.placeholder.com/100" alt="food9-3">
+    </div>
+</div>
+<div class="line2"></div>
+
+
+<!-- 食物10的按鈕 -->
+<div id="section10" class="button-container">
+    <h2>食物10</h2>
+    <div id="food10-1" onclick="showOptions('food10-1')" class="button">
+        <p>食物10-1 - $<span id="food10-1-price">100</span></p>
+        <img src="https://via.placeholder.com/100" alt="food10-1">
+    </div>
+    <div class="line2"></div>
+    <div id="food10-2" onclick="showOptions('food10-2')" class="button">
+        <p>食物10-2 - $<span id="food10-2-price">200</span></p>
+        <img src="https://via.placeholder.com/100" alt="food10-2">
+    </div>
+    <div class="line2"></div>
+    <div id="food10-3" onclick="showOptions('food10-3')" class="button">
+        <p>食物10-3 - $<span id="food10-3-price">300</span></p>
+        <img src="https://via.placeholder.com/100" alt="food10-3">
+    </div>
+</div>
+<div class="line"></div>
+
+<script>
+
+//購物車列表，每個資料應當為餐點,選項,數量,價格。like=>[[1-1,egg,2,20*2],[1-2,ice10,30*10]]
+var carlist=[]
+//餐點勾選列表
+
+
+
+
+
+// 定義變量來表示購物車內的餐點數量和總金額
+let totalItemsInCart = 0;
+let totalPriceInCart = 0;
+
+
+
+// 定義初始餐點數量
+    quantity = 1;
+
+
+
+// 增加數量
+function increaseQuantity() {
+    quantity++;
+    document.getElementById("quantity").textContent = quantity;
+}
+
+// 減少數量，最小數量為1
+function decreaseQuantity() {
+    if (quantity > 1) {
+        quantity--;
+        document.getElementById("quantity").textContent = quantity;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   function scrollToSection(sectionIndex) {
+    const sections = document.querySelectorAll('.button-container');
+    const section = sections[sectionIndex];
+    section.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+
+    let navContainer = document.querySelector('.nav-container');
+    let lineBounding = document.querySelector('.line').getBoundingClientRect();
+
+    function updateActiveTab() {
+    var sections = document.querySelectorAll('.button-container');
+    var navItems = document.querySelectorAll('.nav li');
+    var viewportHeight = window.innerHeight; // 獲取視口高度
+
+    sections.forEach((section, index) => {
+        var bounding = section.getBoundingClientRect();
+        // 使用視口高度的一部分來計算可見性
+        if (bounding.top <= viewportHeight * 0.5 && bounding.bottom >= viewportHeight * 0.5) {
+            navItems.forEach(navItem => {
+                navItem.classList.remove('active');
+            });
+            navItems[index].classList.add('active');
+        }
+    });
+}
+
+
+  
+
+    window.addEventListener('scroll', function() {
+        updateActiveTab();
+       
+    });
+
+    window.addEventListener('DOMContentLoaded', function() {
+        lineBounding = document.querySelector('.line').getBoundingClientRect(); // 更新線條位置
+        
+    });
+
+
+
+
+
+
+
+
+
+   var currentfoodid=""
+    // 清除先前的選項
+    function resetOptions() {
+        // 這裡添加代碼來清除先前的選項
+        var checkboxes = document.querySelectorAll("#optionsModal input[type='checkbox']");
+        checkboxes.forEach(function(checkbox) {
+            checkbox.checked = false;
+        document.getElementById("quantity").innerText = "1";
+        });
+        quantity = 1;
+        // 這裡也可以添加其他清除操作，如重設數量等
+    }
+
+
+// 顯示選項框
+function showOptions(foodid) {
+    
+    resetOptions();
+  
+   var modal = document.getElementById("optionsModal");
+    currentfoodid=foodid
+    modal.style.display = "block";
+    
+}
+
+
+
+
+
+
+    // 隱藏選項框
+    function hideOptions() {
+        var modal = document.getElementById("optionsModal");
+        modal.style.display = "none";
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 將餐點加入購物車並計算總價格
+function addToCart() {
+    // 根據勾選的選項計算額外金額
+    let additionalPrice = 0;
+
+    // 餐點勾選列表
+    var foodoptionslist=[]
+
+    if (document.getElementById('egg').checked) {
+        additionalPrice += 10;
+        foodoptionslist.push('egg');
+    }
+    if (document.getElementById('noEgg').checked) {
+        additionalPrice += 10;
+        foodoptionslist.push('noEgg');
+    }
+    if (document.getElementById('wellDone').checked) {
+        additionalPrice += 10;
+        foodoptionslist.push('wellDone');
+    }
+    if (document.getElementById('halfDone').checked) {
+        additionalPrice += 10;
+        foodoptionslist.push('halfDone');
+    }
+    if (document.getElementById('noIce').checked) {
+        additionalPrice += 10;
+        foodoptionslist.push('noIce');
+    }
+    if (document.getElementById('hot').checked) {
+        additionalPrice += 10;
+        foodoptionslist.push('hot');
+    }
+    if (document.getElementById('ketchup').checked) {
+        additionalPrice += 10;
+        foodoptionslist.push('ketchup');
+    }
+
+
+
+
+    // 獲取選擇的數量
+    let quantity = parseInt(document.getElementById("quantity").textContent);
+
+
+
+
+
+    // 定義食物的計算用價格
+    
+    // 定義食物的初始價格//尚未定義所有按鈕initial price
+    if (currentfoodid == 'food1-1'){
+        var caculateprice = 100;
+        
+    }
+    if (currentfoodid == 'food1-2'){
+        var caculateprice = 200;
+        
+    }
+    if (currentfoodid == "food1-3"){
+        var caculateprice = 300;
+        
+    }
+    //3的間隔
+    if (currentfoodid == 'food2-1'){
+        var caculateprice = 100;
+        
+    }
+    if (currentfoodid == 'food2-2'){
+        var caculateprice = 200;
+        
+    }
+    if (currentfoodid == "food2-3"){
+        var caculateprice = 300;
+        
+    }
+    //3的間隔
+    if (currentfoodid == 'food3-1'){
+        var caculateprice = 100;
+        
+    }
+    if (currentfoodid == 'food3-2'){
+        var caculateprice = 200;
+        
+    }
+    if (currentfoodid == "food3-3"){
+        var caculateprice = 300;
+        
+    }
+       //3的間隔
+       if (currentfoodid == 'food4-1'){
+        var caculateprice = 100;
+        
+    }
+    if (currentfoodid == 'food4-2'){
+        var caculateprice = 200;
+        
+    }
+    if (currentfoodid == "food4-3"){
+        var caculateprice = 300;
+        
+    }
+    //3的間隔
+    if (currentfoodid == 'food5-1'){
+        var caculateprice = 100;
+        
+    }
+    if (currentfoodid == 'food5-2'){
+        var caculateprice = 200;
+        
+    }
+    if (currentfoodid == "food5-3"){
+        var caculateprice = 300;
+        
+    }
+    //3的間隔
+    if (currentfoodid == 'food6-1'){
+        var caculateprice = 100;
+        
+    }
+    if (currentfoodid == 'food6-2'){
+        var caculateprice = 200;
+        
+    }
+    if (currentfoodid == "food6-3"){
+        var caculateprice = 300;
+        
+    }
+    //3的間隔
+    if (currentfoodid == 'food7-1'){
+        var caculateprice = 100;
+        
+    }
+    if (currentfoodid == 'food7-2'){
+        var caculateprice = 200;
+        
+    }
+    if (currentfoodid == "food7-3"){
+        var caculateprice = 300;
+        
+    }
+    //3的間隔
+    if (currentfoodid == 'food8-1'){
+        var caculateprice = 100;
+        
+    }
+    if (currentfoodid == 'food8-2'){
+        var caculateprice = 200;
+        
+    }
+    if (currentfoodid == "food8-3"){
+        var caculateprice = 300;
+        
+    }
+        //3的間隔
+        if (currentfoodid == 'food9-1'){
+        var caculateprice = 100;
+        
+    }
+    if (currentfoodid == 'food9-2'){
+        var caculateprice = 200;
+        
+    }
+    if (currentfoodid == "food9-3"){
+        var caculateprice = 300;
+        
+    }
+        //3的間隔
+        if (currentfoodid == 'food10-1'){
+        var caculateprice = 100;
+        
+    }
+    if (currentfoodid == 'food10-2'){
+        var caculateprice = 200;
+        
+    }
+    if (currentfoodid == "food10-3"){
+        var caculateprice = 300;
+        
+    }
+   let nowPrice = (caculateprice + additionalPrice) * quantity;
+    
+    //購物車列表，每個資料應當為餐點,選項,數量,價格。like=>[[1-1,egg,2,20*2],[1-2,ice10,30*10]]
+    carlist.push([currentfoodid,foodoptionslist,quantity,nowPrice]);
+    
+    // 計算總價格
+    var endPrice = 0
+
+    
+    
+    for (var i = 0; i < carlist.length; i++) {
+    // 获取当前数组的最后一个数字并添加到总和中
+    endPrice += carlist[i][carlist[i].length - 1];
+    console.log("end  = "+endPrice)
+    console.log("i[-1]  = "+carlist[i])
+}
+
+ 
+
+
+    // 更新購物車合計金額顯示
+    document.getElementById("totalPrice").textContent = endPrice;
+
+
+
+
+
+
+
+    // 更新購物車內的餐點數量和總金額
+    totalItemsInCart = quantity;
+    totalPriceInCart = totalPrice;
+
+    
+    
+    console.log("nowPrice  = "+nowPrice)
+    console.log("endPrice  = "+endPrice)
+    //確認currentfoodid
+    console.log('currentfoodid = '+currentfoodid)
+    console.log('carlist = '+JSON.stringify(carlist));
+    console.log('foodoptionslist = '+JSON.stringify(foodoptionslist));
+
+    // 隱藏選項框
+    hideOptions();
+
+    // 更新購物車顯示
+    updateCartDisplay();
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 更新購物車顯示
+function updateCartDisplay() {
+    var cartSummary = document.getElementById("cartSummary");
+    // 如果購物車內有餐點或總金額不為零，則顯示購物車；否則隱藏購物車
+    if (totalItemsInCart > 0 || totalPriceInCart > 0) {
+        cartSummary.style.display = 'block';
+    } else {
+        cartSummary.style.display = 'none';
+    }
+}
+// 滾動時顯示或隱藏購物車
+window.onscroll = function() {
+    // 呼叫更新購物車顯示函數
+    updateCartDisplay();
+};
+function checkout() {
+
+    // 將點餐資料存儲到 sessionStorage 中
+    saveOrderToStorage(carlist);
+
+    // 導航到結帳頁面
+    window.location.href = "checkout.html";
+
+
+
+
+
+}
+// 將點餐資料存儲到 sessionStorage 中
+function saveOrderToStorage(orderData) {
+    sessionStorage.setItem('orderData', JSON.stringify(orderData));
+}
+
+</script>
+</body>
+</html>

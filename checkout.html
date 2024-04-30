@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout Page</title>
+    <h1>結帳頁面</h1>
+    <ul id="orderList">
+        <!-- 這裡將動態插入點餐資料 -->
+    </ul>
+
+
+</head>
+<body>
+    <h1>Checkout Page</h1>
+    <div id="cartItems">
+        <!-- 購物車內的餐點內容會動態添加到這裡 -->
+    </div>
+   <script>
+    // 讀取 sessionStorage 中的點餐資料
+    function getOrderFromStorage() {
+        var orderData = sessionStorage.getItem('orderData');
+        return JSON.parse(orderData);
+}
+
+    // 顯示點餐資料
+    function displayOrder(orderData) {
+        var orderList = document.getElementById('orderList');
+            orderList.innerHTML = ''; // 清空先前的內容
+
+            // 遍歷點餐資料並將其插入到 orderList 中
+            for (var i = 0; i < orderData.length; i++) {
+                var orderItem = orderData[i];
+                var listItem = document.createElement('li');
+                listItem.textContent = orderItem[0] + ' - $' + orderItem[3]; // 假設資料結構是 [食物名稱, [], 數量, 價錢]
+                orderList.appendChild(listItem);
+            }
+    }
+
+    // 在頁面加載完成後執行
+    window.onload = function() {
+        // 讀取 sessionStorage 中的點餐資料
+        var orderData = getOrderFromStorage();
+
+        // 顯示點餐資料
+        displayOrder(orderData);
+    }
+   </script>
+</body>
+</html>
