@@ -558,6 +558,7 @@
 
 //購物車列表，每個資料應當為餐點,選項,數量,價格。like=>[[1-1,egg,2,20*2],[1-2,ice10,30*10]]
 var carlist=[]
+
 //餐點勾選列表
 
 
@@ -948,6 +949,7 @@ function addToCart() {
 
 // 更新購物車顯示
 function updateCartDisplay() {
+    
     var cartSummary = document.getElementById("cartSummary");
     // 如果購物車內有餐點或總金額不為零，則顯示購物車；否則隱藏購物車
     if (totalItemsInCart > 0 || totalPriceInCart > 0) {
@@ -974,9 +976,12 @@ function checkout() {
 
 
 }
+function saveDataToLocalStorage(data) {
+    localStorage.setItem('cartData', JSON.stringify(data));
+}
 // 將點餐資料存儲到 sessionStorage 中
 function saveOrderToStorage(orderData) {
-    sessionStorage.setItem('orderData', JSON.stringify(orderData));
+    localStorage.setItem('orderData', JSON.stringify(orderData));
 }
 
 </script>

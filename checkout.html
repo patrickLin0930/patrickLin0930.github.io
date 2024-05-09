@@ -1,50 +1,118 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Checkout Page</title>
-    <h1>結帳頁面</h1>
-    <ul id="orderList">
-        <!-- 這裡將動態插入點餐資料 -->
-    </ul>
-
-
+    <title>餐點結帳頁面</title>
+    <style>
+        .order-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .order-item p {
+            margin-right: 10px;
+        }
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+        }
+        .quantity-controls button {
+            margin: 0 5px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Checkout Page</h1>
-    <div id="cartItems">
-        <!-- 購物車內的餐點內容會動態添加到這裡 -->
-    </div>
-   <script>
-    // 讀取 sessionStorage 中的點餐資料
-    function getOrderFromStorage() {
-        var orderData = sessionStorage.getItem('orderData');
-        return JSON.parse(orderData);
-}
+    <h1>餐點結帳</h1>
+    <div id="orderList"></div>
+    <button id="submitOrder">提交訂單</button>
 
-    // 顯示點餐資料
-    function displayOrder(orderData) {
-        var orderList = document.getElementById('orderList');
-            orderList.innerHTML = ''; // 清空先前的內容
+    <script>
+        // 初始化訂單資料，同時讀取本地端localstorage
+        let orderData = JSON.parse(localStorage.getItem('orderData')) || [];
 
-            // 遍歷點餐資料並將其插入到 orderList 中
-            for (var i = 0; i < orderData.length; i++) {
-                var orderItem = orderData[i];
-                var listItem = document.createElement('li');
-                listItem.textContent = orderItem[0] + ' - $' + orderItem[3]; // 假設資料結構是 [食物名稱, [], 數量, 價錢]
-                orderList.appendChild(listItem);
+        // 渲染訂單列表
+        function renderOrderList() {
+            const orderList = document.getElementById('orderList');
+            orderList.innerHTML = '';
+
+            orderData.forEach((item, index) => {
+                const foodName = item[0];
+                const quantity = item[2];
+                const price = item[3];
+
+                const orderItem = document.createElement('div');
+                orderItem.classList.add('order-item');
+
+                const nameElement = document.createElement('p');
+                nameElement.textContent = `${foodName} - ${price}`;
+
+                const quantityControls = document.createElement('div');
+                quantityControls.classList.add('quantity-controls');
+
+                const decrementButton = document.createElement('button');
+                decrementButton.textContent = '-';
+                decrementButton.addEventListener('click', () => decrementQuantity(index));
+
+                const quantityElement = document.createElement('p');
+                quantityElement.textContent = quantity;
+
+                const incrementButton = document.createElement('button');
+                incrementButton.textContent = '+';
+                incrementButton.addEventListener('click', () => incrementQuantity(index));
+
+                const deleteButton = document.createElement('button');
+                deleteButton.textContent = '刪除';
+                deleteButton.addEventListener('click', () => removeItem(index));
+
+                quantityControls.appendChild(decrementButton);
+                quantityControls.appendChild(quantityElement);
+                quantityControls.appendChild(incrementButton);
+
+                orderItem.appendChild(nameElement);
+                orderItem.appendChild(quantityControls);
+                orderItem.appendChild(deleteButton);
+
+                orderList.appendChild(orderItem);
+            });
+        }
+
+        // 增加餐點數量
+        function incrementQuantity(index) {
+            orderData[index][2]++;
+            saveOrderData();
+            renderOrderList();
+        }
+
+        // 減少餐點數量
+        function decrementQuantity(index) {
+            if (orderData[index][2] > 1) {
+                orderData[index][2]--;
+                saveOrderData();
+                renderOrderList();
             }
-    }
+        }
 
-    // 在頁面加載完成後執行
-    window.onload = function() {
-        // 讀取 sessionStorage 中的點餐資料
-        var orderData = getOrderFromStorage();
+        // 移除餐點
+        function removeItem(index) {
+            orderData.splice(index, 1);
+            saveOrderData();
+            renderOrderList();
 
-        // 顯示點餐資料
-        displayOrder(orderData);
-    }
-   </script>
+        }
+
+        // 保存訂單資料到本地儲存
+        function saveOrderData() {
+            localStorage.setItem('orderData', JSON.stringify(orderData));
+            console.log('移除後餐點內容 = '+JSON.stringify(orderData));
+        }
+
+        // 提交訂單處理
+        const submitOrderButton = document.getElementById('submitOrder');
+        submitOrderButton.addEventListener('click', () => {
+            console.log('最後送出的資料 = '+JSON.stringify(orderData));
+        });
+
+        // 初始渲染訂單列表
+        renderOrderList();
+    </script>
 </body>
 </html>
