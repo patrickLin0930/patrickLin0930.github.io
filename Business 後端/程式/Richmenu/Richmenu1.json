@@ -1,0 +1,83 @@
+{
+  "size": {
+    "width": 2500,
+    "height": 1686
+  },
+  "selected": true,
+  "name": "圖文選單 1",
+  "chatBarText": "查看更多資訊",
+  "areas": [
+    {
+      "bounds": {
+        "x": 30,
+        "y": 370,
+        "width": 576,
+        "height": 576
+      },
+      "action": {
+        "type": "message",
+        "text": "A-聯絡資訊(工作室合作討論)"
+      }
+    },
+    {
+      "bounds": {
+        "x": 62,
+        "y": 1131,
+        "width": 544,
+        "height": 257
+      },
+      "action": {
+        "type": "message",
+        "text": "B-(每日雞湯or笑話)"
+      }
+    },
+    {
+      "bounds": {
+        "x": 781,
+        "y": 226,
+        "width": 689,
+        "height": 329
+      },
+      "action": {
+        "type": "uri",
+        "uri": "https://liff.line.me/2004091785-BL7N4GLO"
+      }
+    },
+    {
+      "bounds": {
+        "x": 1768,
+        "y": 206,
+        "width": 637,
+        "height": 339
+      },
+      "action": {
+        "type": "message",
+        "text": "D-商家社群專頁"
+      }
+    },
+    {
+      "bounds": {
+        "x": 812,
+        "y": 1059,
+        "width": 648,
+        "height": 318
+      },
+      "action": {
+        "type": "message",
+        "text": "E-商家意見建議"
+      }
+    },
+    {
+      "bounds": {
+        "x": 1768,
+        "y": 1090,
+        "width": 627,
+        "height": 298
+      },
+      "action": {
+        "type": "message",
+        "text": "F-商家位置"
+      }
+    }
+  ]
+}

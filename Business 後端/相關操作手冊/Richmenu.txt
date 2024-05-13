@@ -1,0 +1,76 @@
+STEP-1：
+
+上方欄位 POST 填入 https://api.line.me/v2/bot/richmenu
+
+欄位Authorization 選擇 Bearer 然後填入步驟二的 channel access token
+
+欄位Header裡面欄位Key填入Content-Type，欄位Value填入 application/json（如果有預設填入別的了，把預設的不勾選即可）
+
+欄位Body下選raw，在raw內帶入json程式碼，範例如下。最後按送出會回傳 rich menu id，後面 API 會使用到。
+
+##要留下RICH MENU ID
+
+{
+    "richmenu-c3850ce09e30da5bc6cee6be0b6985e3"
+}
+
+欄位Authorization 選擇 Bearer 然後一樣填入步驟二的 channel access token
+
+欄位Header裡面欄位Key填入Content-Type，欄位Value填入 image/jpeg or image/png，看image檔案是哪一種
+
+欄位Body那邊選擇 binary ，接著選擇對應的圖文選單上傳，最後按送出後，如果回傳狀態碼 200 與 {}， 代表成功！四張圖片，都需要傳上去哦！
+
+
+##!!舉例url:https://api-data.line.me/v2/bot/richmenu/richmenu-49bb36c065f3c73ddba3cbd2a909e29d/content
+
+
+
+
+STEP-3：
+
+上方欄位POST 填入 https://api.line.me/v2/bot/user/all/richmenu/
+
+欄位Authorization 選擇 Bearer 然後一樣填入步驟二的 channel access token
+
+欄位Header裡面欄位Key填入Content-Type，欄位Value填入 application/json
+
+欄位Body那邊帶入json程式碼richMenuID，
+
+
+###!!!
+{
+    "richMenuId": "richmenu-c3850ce09e30da5bc6cee6be0b6985e3"
+}
+
+
+
+
+
+
+
+～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～～
+
+
+刪除/檢查/更改用!!!
+
+STEP-1：
+
+上方欄位選DELETE，填入 https://api.line.me/v2/bot/richmenu/{richMenuId}/
+
+得到狀態碼 200 與 {}， 代表成功刪除。(連圖片都一起刪了，可以GET檢查)
+
+
+
+
+
+
+
+
+STEP-2：
+
+上方欄位 GET 填入 https://api.line.me/v2/bot/richmenu/list
+
+即可顯示現有的RICHMENU
+
+
+

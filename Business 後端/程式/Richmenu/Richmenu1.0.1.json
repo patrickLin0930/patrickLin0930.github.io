@@ -1,0 +1,71 @@
+{
+  "size": {
+    "width": 2500,
+    "height": 1686
+  },
+  "selected": true,
+  "name": "圖文選單 1",
+  "chatBarText": "查看更多資訊",
+  "areas": [
+    {
+      "bounds": {
+        "x": 13,
+        "y": 397,
+        "width": 604,
+        "height": 975
+      },
+      "action": {
+        "type": "message",
+        "text": "您好，\n\n我們是帝昂Studio，若商家有合作需求或學生社團有贊助需求，歡迎透過以下聯絡管道與我們聯絡！\n\n期待與您的合作！\n\n聯絡資訊：diang.studio.5@gmail.com\n\n帝昂Studio"
+      }
+    },
+    {
+      "bounds": {
+        "x": 794,
+        "y": 232,
+        "width": 663,
+        "height": 304
+      },
+      "action": {
+        "type": "uri",
+        "uri": "https://liff.line.me/2004091785-BL7N4GLO"
+      }
+    },
+    {
+      "bounds": {
+        "x": 1761,
+        "y": 224,
+        "width": 650,
+        "height": 317
+      },
+      "action": {
+        "type": "uri",
+        "uri": "https://www.facebook.com/"
+      }
+    },
+    {
+      "bounds": {
+        "x": 777,
+        "y": 1081,
+        "width": 684,
+        "height": 313
+      },
+      "action": {
+        "type": "message",
+        "text": "d-店家公告"
+      }
+    },
+    {
+      "bounds": {
+        "x": 1736,
+        "y": 1090,
+        "width": 680,
+        "height": 299
+      },
+      "action": {
+        "type": "uri",
+        "uri": "https://www.google.com.tw/maps/@23.546162,120.6402133,8z?hl=zh-TW"
+      }
+    }
+  ]
+}

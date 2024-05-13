@@ -1,0 +1,3 @@
+Liff相關設定要去Line developer找GITTEST去調整
+endpoints-終點，目前設定為https://patricklin0930.github.io/   ##20240504
+
