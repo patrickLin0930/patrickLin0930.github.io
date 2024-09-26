@@ -43,6 +43,8 @@
 
 
 
+
+
         .line {
             width: 100%;
             height: 1px;
@@ -124,12 +126,12 @@
 
 
         /* 給q */
-        /* 新增的样式 */
+        /* 新增的樣式 */
 
         .store-header {
-            border-bottom: 1px solid #ccc; /* 添加灰色横线 */
-            margin-bottom: 20px; /* 添加间距 */
-            padding-left: 20px; /* 添加左边距 */
+            border-bottom: 1px solid #ccc; /* 添加灰色橫線 */
+            margin-bottom: 20px; /* 添加間距 */
+            padding-left: 20px; /* 添加左邊距 */
         }
 
         .header {
@@ -143,26 +145,26 @@
         }
 
         .logo-container {
-            width: 50px; /* 设置 logo 容器宽度 */
-            padding-left: 13px; /* 添加左边距 */
+            width: 50px; /* 設定 logo 容器寬度 */
+            padding-left: 13px; /* 添加左邊距 */
         }
 
         .logo {
-            width: 100%; /* 让 logo 充满容器 */
-            height: auto; /* 自适应高度 */
-            padding-left: 10px; /* 添加左边距 */
+            width: 100%; /* 讓 logo 充滿容器 */
+            height: auto; /* 自適應高度 */
+            padding-left: 10px; /* 添加左邊距 */
         }
 
         .address {
-            flex: 5; /* 占据 5 份空间 */
-            text-align: left; /* 左对齐 */
-            padding-left: 30px; /* 添加左边距 */
+            flex: 5; /* 佔據 5 份空間 */
+            text-align: left; /* 左對齊 */
+            padding-left: 30px; /* 添加左邊距 */
         }
 
         .navigation {
-            flex: 1; /* 占据 1 份空间 */
+            flex: 1; /* 佔據 1 份空間 */
             text-align: right;
-            padding-right: 10px; /* 添加左边距 */
+            padding-right: 10px; /* 添加左邊距 */
         }
 
         /* 新增的樣式 */
@@ -187,7 +189,7 @@
         }
 
         .button p {
-            flex: 1; /* 讓文字占據剩餘空間 */
+            flex: 1; /* 讓文字佔據剩餘空間 */
             margin: 0; /* 清除預設邊距 */
         }
 
@@ -271,7 +273,7 @@
         <h1 class="store-name">菜奇鴨早餐店</h1>
     </div>
 
-    <!-- 下方添加包含 logo、位置和导航的元素行 -->
+    <!-- 下方添加包含 logo、位置和導航的元素行 -->
     <div class="header">
         <div class="logo-container">
             <img src="https://via.placeholder.com/150" alt="logo" class="logo">
@@ -363,10 +365,6 @@
 
 
 
-
-
-
-
     <div class="line2"></div>
     <div id="food1-2" onclick="showOptions('food1-2')" class="button">
         <p>食物1-2 - $<span id="food1-2-price">200</span></p>
@@ -425,7 +423,7 @@
 
 
 
-<!-- 食物的按鈕 -->
+<!-- 食物4的按鈕 -->
 <div id="section4" class="button-container">
     <h2>食物4</h2>
     <div id="food4-1" onclick="showOptions('food4-1')" class="button">
@@ -445,7 +443,7 @@
 </div>
 <div class="line2"></div>
 
-<!-- 食物的按鈕 -->
+<!-- 食物5的按鈕 -->
 <div id="section5" class="button-container">
     <h2>食物5</h2>
     <div id="food5-1" onclick="showOptions('food5-1')" class="button">
@@ -453,7 +451,7 @@
         <img src="https://via.placeholder.com/100" alt="food5-1">
     </div>
     <div class="line2"></div>
-    <div id="food5-2" onclick="showOptions('food2-2')" class="button">
+    <div id="food5-2" onclick="showOptions('food5-2')" class="button">
         <p>食物5-2 - $<span id="food5-2-price">200</span></p>
         <img src="https://via.placeholder.com/100" alt="food5-2">
     </div>
@@ -465,7 +463,7 @@
 </div>
 <div class="line"></div>
 
-<!-- 食物的按鈕 -->
+<!-- 食物6的按鈕 -->
 <div id="section6" class="button-container">
     <h2>食物6</h2>
     <div id="food6-1" onclick="showOptions('food6-1')" class="button">
@@ -485,7 +483,7 @@
 </div>
 <div class="line2"></div>
 
-<!-- 食物的按鈕 -->
+<!-- 食物7的按鈕 -->
 <div id="section7" class="button-container">
     <h2>食物7</h2>
     <div id="food7-1" onclick="showOptions('food7-1')" class="button">
@@ -506,7 +504,7 @@
 <div class="line2"></div>
 
 
-<!-- 食物的按鈕 -->
+<!-- 食物8的按鈕 -->
 <div id="section8" class="button-container">
     <h2>食物8</h2>
     <div id="food8-1" onclick="showOptions('food8-1')" class="button">
@@ -526,7 +524,7 @@
 </div>
 <div class="line2"></div>
 
-<!-- 食物的按鈕 -->
+<!-- 食物9的按鈕 -->
 <div id="section9" class="button-container">
     <h2>食物9</h2>
     <div id="food9-1" onclick="showOptions('food9-1')" class="button">
@@ -577,7 +575,6 @@ var carlist=[]
 
 
 
-
 // 定義變量來表示購物車內的餐點數量和總金額
 let totalItemsInCart = 0;
 let totalPriceInCart = 0;
@@ -602,8 +599,6 @@ function decreaseQuantity() {
         document.getElementById("quantity").textContent = quantity;
     }
 }
-
-
 
 
 
@@ -665,6 +660,7 @@ function decreaseQuantity() {
 
 
 
+
    var currentfoodid=""
     // 清除先前的選項
     function resetOptions() {
@@ -694,16 +690,11 @@ function showOptions(foodid) {
 
 
 
-
     // 隱藏選項框
     function hideOptions() {
         var modal = document.getElementById("optionsModal");
         modal.style.display = "none";
     }
-
-
-
-
 
 
 
@@ -760,7 +751,6 @@ function addToCart() {
 
     // 獲取選擇的數量
     let quantity = parseInt(document.getElementById("quantity").textContent);
-
 
 
 
@@ -908,18 +898,17 @@ function addToCart() {
     
     
     for (var i = 0; i < carlist.length; i++) {
-    // 获取当前数组的最后一个数字并添加到总和中
+    // 獲取當前數組的最後一個數字並添加到總和中
     endPrice += carlist[i][carlist[i].length - 1];
     console.log("end  = "+endPrice)
     console.log("i[-1]  = "+carlist[i])
 }
 
- 
+
 
 
     // 更新購物車合計金額顯示
     document.getElementById("totalPrice").textContent = endPrice;
-
 
 
 
