@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: url('https://i.imgur.com/XGywfJ7.jpeg') center center fixed;
+      background-size: cover;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+    .ripple-zone {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+    .ripple {
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+      width: 100px;
+      height: 100px;
+      background: radial-gradient(circle, rgba(255,255,255,0.2) 30%, rgba(255,255,255,0) 80%);
+      transform: scale(0);
+      animation: ripple-animation 1.5s ease-out forwards;
+      z-index: 1;
+    }
+    @keyframes ripple-animation {
+      0% { transform: scale(0); opacity: 1; }
+      100% { transform: scale(5); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="ripple-zone" id="ripple-area"></div>
+
+  <script>
+    const area = document.getElementById("ripple-area");
+    let lastTime = 0;
+    area.addEventListener("mousemove", function (e) {
+      const now = Date.now();
+      if (now - lastTime < 300) return;
+      lastTime = now;
+
+      const ripple = document.createElement("div");
+      ripple.className = "ripple";
+      ripple.style.left = `${e.clientX - 50}px`;
+      ripple.style.top = `${e.clientY - 50}px`;
+      area.appendChild(ripple);
+      ripple.addEventListener("animationend", () => ripple.remove());
+    });
+  </script>
+</body>
+</html>
